@@ -1,0 +1,975 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Contract Nutech Test",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/registration": {
+      "post": {
+        "description": "**Public API** \nCreate User/Credential to login.\n",
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "The user to create.",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "firstName",
+                "lastName",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "admin@nutech.com"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "jaya"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "abadi"
+                },
+                "password": {
+                  "type": "string",
+                  "example": 12345678
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "success!"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "admin@nutech.com"
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "example": "jaya"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "abadi"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email already registered",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Email is already Registered!"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Validation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 422
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error Validation"
+                },
+                "data": {
+                  "required": [
+                    "email"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "Email is not valid!"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "description": "**Public API** \nLogin to app.\n",
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "The user to create.",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "admin@nutech.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "jayasada"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "success!"
+                },
+                "data": {
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "properties": {
+                        "id": {
+                          "example": "6c651633-dd6d-4f03-a2d6-1c69f3ede338"
+                        },
+                        "email": {
+                          "example": "user1@gmail.com"
+                        },
+                        "firstName": {
+                          "example": "dani"
+                        },
+                        "lastName": {
+                          "example": "pos"
+                        },
+                        "profileImage": {
+                          "example": "user/dasuifg27ado1n314.png"
+                        },
+                        "createdAt": {
+                          "example": "2024-10-23T10:33:53.169Z"
+                        },
+                        "updatedAt": {
+                          "example": "2024-10-23T10:33:53.169Z"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Wrong Credential",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Wrong Credential!"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid Validation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 422
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error Validation"
+                },
+                "data": {
+                  "required": [
+                    "email"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "Email is not valid!"
+                      }
+                    },
+                    "password": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "String must contain at least 8 character(s)"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profile": {
+      "get": {
+        "description": "**Private API (Need JWT to access)** \nGet user detail\n",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "user1@gmail.com"
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "example": "test"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "nama"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profile/update": {
+      "put": {
+        "description": "**Private API (Need JWT to access)** \nGet user detail\n",
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "The user to create.",
+            "schema": {
+              "type": "object",
+              "required": [
+                "firstName",
+                "lastName"
+              ],
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "jaya"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "abadi"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "user1@gmail.com"
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "example": "jaya"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "abadi"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profile/image": {
+      "put": {
+        "description": "**Private API (Need JWT to access)** \nUpdate user profile image. Only accept .jpeg and .png format\n",
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "file",
+            "type": "file",
+            "description": "Upload image."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "user1@gmail.com"
+                    },
+                    "firstName": {
+                      "type": "string",
+                      "example": "jaja"
+                    },
+                    "lastName": {
+                      "type": "string",
+                      "example": "akim"
+                    },
+                    "profileImage": {
+                      "type": "string",
+                      "example": "user/f55a4e23e1a6f2accf110ddf79c13e11.PNG"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid format",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 422
+                },
+                "message": {
+                  "type": "string",
+                  "example": "File format must be jpeg or png!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/banners": {
+      "get": {
+        "description": "**Public API**\nGet all banner information\n",
+        "tags": [
+          "Information"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "bannerName": {
+                        "type": "string"
+                      },
+                      "bannerImage": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "bannerName": "Banner 1",
+                      "bannerImage": "https://nutech-integrasi.app/dummy.jpg",
+                      "description": "Lerem Ipsum Dolor sit amet"
+                    },
+                    {
+                      "bannerName": "Banner 2",
+                      "bannerImage": "https://nutech-integrasi.app/dummy.jpg",
+                      "description": "Lerem Ipsum Dolor sit amet"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/services": {
+      "get": {
+        "description": "**Private API (Need JWT to access)**\nGet all service information\n",
+        "tags": [
+          "Information"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "serviceCode": {
+                        "type": "string"
+                      },
+                      "serviceName": {
+                        "type": "string"
+                      },
+                      "serviceIcon": {
+                        "type": "string"
+                      },
+                      "serviceTariff": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "serviceCode": "PAJAK",
+                      "serviceName": "Pajak PBB",
+                      "serviceIcon": "https://nutech-integrasi.app/dummy.jpg",
+                      "serviceTariff": 40000
+                    },
+                    {
+                      "serviceCode": "PLN",
+                      "serviceName": "Listrik",
+                      "serviceIcon": "https://nutech-integrasi.app/dummy.jpg",
+                      "serviceTariff": 10000
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/balance": {
+      "get": {
+        "description": "**Private API (Need JWT to Access)**\nGet account balance\n",
+        "tags": [
+          "Transaction"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "success!"
+                },
+                "data": {
+                  "properties": {
+                    "balance": {
+                      "type": "number",
+                      "example": 200000
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topup": {
+      "post": {
+        "description": "**Private API (Need JWT to Access)**\nTop up user balance\n",
+        "tags": [
+          "Transaction"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "amount",
+            "schema": {
+              "type": "object",
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "amount": {
+                  "type": "number",
+                  "example": 200000
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "success!"
+                },
+                "data": {
+                  "properties": {
+                    "balance": {
+                      "type": "number",
+                      "example": 200000
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 422
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error Validation"
+                },
+                "data": {
+                  "required": [
+                    "amount"
+                  ],
+                  "properties": {
+                    "amount": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "Number must be greater than or equal to 0"
+                      }
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/transaction": {
+      "post": {
+        "description": "**Private API (Need JWT To Access)**\nCreate transaction for registered user\n",
+        "tags": [
+          "Transaction"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "serviceCode",
+            "schema": {
+              "type": "object",
+              "required": [
+                "serviceCode"
+              ],
+              "properties": {
+                "amount": {
+                  "type": "string",
+                  "example": "PAJAK"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "success!"
+                },
+                "data": {
+                  "properties": {
+                    "invoiceNumber": {
+                      "type": "string",
+                      "example": "INV20241024-0008"
+                    },
+                    "serviceCode": {
+                      "example": "PAJAK"
+                    },
+                    "serviceName": {
+                      "type": "string",
+                      "example": "Pajak PBB"
+                    },
+                    "transactionType": {
+                      "type": "string",
+                      "example": "PAYMENT"
+                    },
+                    "totalAmount": {
+                      "type": "number",
+                      "example": 40000
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-10-24T07:55:57.290Z"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 400
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Your balance is not sufficient!"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Service not found!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/transaction/history": {
+      "get": {
+        "description": "**Private API (Need JWT to Access)**\nGet transaction history\n",
+        "tags": [
+          "Transaction"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "invoiceNumber": {
+                        "type": "string"
+                      },
+                      "serviceCode": {
+                        "type": "string"
+                      },
+                      "serviceName": {
+                        "type": "string"
+                      },
+                      "transactionType": {
+                        "type": "string"
+                      },
+                      "totalAmount": {
+                        "type": "number"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "invoiceNumber": "INV20241024-0001",
+                      "serviceCode": "TOPUP",
+                      "serviceName": "Top Up Balance",
+                      "transactionType": "TOPUP",
+                      "totalAmount": 50000,
+                      "createdAt": "2024-10-23T10:33:53.169Z"
+                    },
+                    {
+                      "invoiceNumber": "INV20241024-0002",
+                      "serviceCode": "PAJAK",
+                      "serviceName": "Pajak PBB",
+                      "transactionType": "PAYMENT",
+                      "totalAmount": 40000,
+                      "createdAt": "2024-10-23T10:33:53.169Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "properties": {
+                "statusCode": {
+                  "type": "number",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
