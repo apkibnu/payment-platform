@@ -9,6 +9,7 @@ import {
 } from "../validation/user-validation";
 import { AppError, HttpCode } from "@/libs/exception/app-error";
 import { AuthRequest } from "../utils/jwt-request";
+import { APP_URL } from "@/libs/utils";
 
 @Injectable()
 export class UserController {
@@ -26,14 +27,28 @@ export class UserController {
     const auth = await this.userService.login(validatedReq.data);
     return res
       .status(200)
-      .json({ statusCode: HttpCode.OK, message: "success!", data: auth });
+      .json({
+        statusCode: HttpCode.OK,
+        message: "success!",
+        data: {
+          ...auth,
+          profileImage: auth.user.profileImage
+            ? APP_URL + auth.user.profileImage
+            : null,
+        },
+      });
   }
 
   public async me(req: Request, res: Response): Promise<Response> {
     const auth = await this.userService.me(
       <string>req.get("Authorization")?.split(" ")[1]
     );
-    const { id, createdAt, updatedAt, password, ...newData } = auth.user;
+    const { id, createdAt, updatedAt, password, ...newData } = {
+      ...auth.user,
+      profileImage: auth.user.profileImage
+        ? APP_URL + auth.user.profileImage
+        : null,
+    };
     return res.status(200).json({
       statusCode: HttpCode.OK,
       message: "success",
@@ -74,7 +89,14 @@ export class UserController {
     const { id, createdAt, updatedAt, password, ...newData } = data;
     return res
       .status(200)
-      .json({ statusCode: HttpCode.OK, message: "success!", data: newData });
+      .json({
+        statusCode: HttpCode.OK,
+        message: "success!",
+        data: {
+          ...newData,
+          profileImage: data.profileImage ? APP_URL + data.profileImage : null,
+        },
+      });
   }
 
   public async updateImage(req: AuthRequest, res: Response): Promise<Response> {
@@ -109,6 +131,13 @@ export class UserController {
     const { id, createdAt, updatedAt, password, ...newData } = data;
     return res
       .status(200)
-      .json({ statusCode: HttpCode.OK, message: "success!", data: newData });
+      .json({
+        statusCode: HttpCode.OK,
+        message: "success!",
+        data: {
+          ...newData,
+          profileImage: data.profileImage ? APP_URL + data.profileImage : null,
+        },
+      });
   }
 }

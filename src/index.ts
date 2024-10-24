@@ -10,12 +10,14 @@ import { errorHandler } from "./libs/exception/error-handler";
 import { Routes } from "./presentation/routes/routes";
 import swaggerUi from "swagger-ui-express";
 import swagger from "./swagger.json";
+import path from "path";
 
 const app = express();
 export const server = http.createServer(app);
 export const httpTerminator = createHttpTerminator({ server });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "../public")));
 client.connect(async (err) => {
   if (err) throw err;
   console.log("db connected");

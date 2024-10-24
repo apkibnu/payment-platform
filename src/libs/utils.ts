@@ -17,6 +17,7 @@ export const APP_HOST = process.env.APP_HOST || "0.0.0.0";
 export const APP_PORT = process.env.APP_PORT || "3000";
 export const APP_URL_PREFIX = process.env.APP_URL_PREFIX || "/api/";
 export const JWT_SECRET = process.env["JWT_SECRET"] || "secret";
+export const APP_URL = process.env.APP_URL || "http://localhost:3000/";
 export const DB_CONFIG = {
   db_name: process.env["DB_NAME"] || "db_local",
   db_user: process.env["DB_USER"] || "root",
