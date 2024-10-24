@@ -157,7 +157,7 @@
                 },
                 "password": {
                   "type": "string",
-                  "example": "jayasada"
+                  "example": "12345678"
                 }
               }
             }
@@ -907,48 +907,61 @@
                   "type": "string"
                 },
                 "data": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "invoiceNumber": {
-                        "type": "string"
-                      },
-                      "serviceCode": {
-                        "type": "string"
-                      },
-                      "serviceName": {
-                        "type": "string"
-                      },
-                      "transactionType": {
-                        "type": "string"
-                      },
-                      "totalAmount": {
-                        "type": "number"
-                      },
-                      "createdAt": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "example": [
-                    {
-                      "invoiceNumber": "INV20241024-0001",
-                      "serviceCode": "TOPUP",
-                      "serviceName": "Top Up Balance",
-                      "transactionType": "TOPUP",
-                      "totalAmount": 50000,
-                      "createdAt": "2024-10-23T10:33:53.169Z"
+                  "type": "object",
+                  "properties": {
+                    "limit": {
+                      "type": "number",
+                      "example": 12
                     },
-                    {
-                      "invoiceNumber": "INV20241024-0002",
-                      "serviceCode": "PAJAK",
-                      "serviceName": "Pajak PBB",
-                      "transactionType": "PAYMENT",
-                      "totalAmount": 40000,
-                      "createdAt": "2024-10-23T10:33:53.169Z"
+                    "offset": {
+                      "type": "number",
+                      "example": 12
+                    },
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "invoiceNumber": {
+                            "type": "string"
+                          },
+                          "serviceCode": {
+                            "type": "string"
+                          },
+                          "serviceName": {
+                            "type": "string"
+                          },
+                          "transactionType": {
+                            "type": "string"
+                          },
+                          "totalAmount": {
+                            "type": "number"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "invoiceNumber": "INV20241024-0001",
+                          "serviceCode": "TOPUP",
+                          "serviceName": "Top Up Balance",
+                          "transactionType": "TOPUP",
+                          "totalAmount": 50000,
+                          "createdAt": "2024-10-23T10:33:53.169Z"
+                        },
+                        {
+                          "invoiceNumber": "INV20241024-0002",
+                          "serviceCode": "PAJAK",
+                          "serviceName": "Pajak PBB",
+                          "transactionType": "PAYMENT",
+                          "totalAmount": 40000,
+                          "createdAt": "2024-10-23T10:33:53.169Z"
+                        }
+                      ]
                     }
-                  ]
+                  }
                 }
               }
             }

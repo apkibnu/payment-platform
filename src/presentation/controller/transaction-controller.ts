@@ -68,7 +68,7 @@ export class TransactionController {
       data: {
         offset: validatedReq.data.offset,
         limit: validatedReq.data.limit ? validatedReq.data.limit : data.length,
-        data,
+        records: data,
       },
     });
   }
