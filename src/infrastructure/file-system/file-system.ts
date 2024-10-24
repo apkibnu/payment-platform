@@ -6,7 +6,7 @@ import path from "path";
 export class FileSystem {
   public static store(file: IMulterFile, dest: string): string {
     const destPath = path.join(
-      "storage",
+      "public",
       dest,
       file.filename + "." + `${file.originalname}`.split(".").reverse()[0]
     );
@@ -43,7 +43,7 @@ export class FileSystem {
       }
     }
     const destPath = path.join(
-      "storage",
+      "public",
       dest,
       file.filename + "." + `${file.originalname}`.split(".").reverse()[0]
     );

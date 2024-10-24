@@ -93,9 +93,10 @@ export class UserService {
       });
     }
 
-    oldFile = oldFile ? "storage\\" + oldFile.split("/").join("\\") : undefined;
+    oldFile = oldFile ? "public/" + oldFile : undefined;
     const imagePath = FileSystem.update(file, "user", oldFile);
     const path = imagePath.split("\\").slice(1).join("/");
+    console.log(imagePath);
     const user = await this.userRepository.updateProfileImage(id, path);
     return user.unmarshal();
   }
