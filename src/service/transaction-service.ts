@@ -38,7 +38,7 @@ export class TransactionService {
       );
       const invoiceIndex =
         await this.transactionRepository.findLatestInvoiceNumber();
-      if (invoiceIndex === 0) invoiceNumber = `INV${date}-0000`;
+      if (invoiceIndex === 0) invoiceNumber = `INV${date}-0001`;
       else {
         const incrementNumber = Number(invoiceIndex) + 1;
         const incrementString = incrementNumber.toString();
