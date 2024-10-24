@@ -62,8 +62,14 @@ export class TransactionController {
       req.auth.user.id!,
       validatedReq.data
     );
-    return res
-      .status(200)
-      .json({ statusCode: 200, message: "success!", data: data });
+    return res.status(200).json({
+      statusCode: 200,
+      message: "success!",
+      data: {
+        offset: validatedReq.data.offset,
+        limit: validatedReq.data.limit ? validatedReq.data.limit : data.length,
+        data,
+      },
+    });
   }
 }
