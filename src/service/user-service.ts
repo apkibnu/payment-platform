@@ -95,8 +95,8 @@ export class UserService {
 
     oldFile = oldFile ? "public/" + oldFile : undefined;
     const imagePath = FileSystem.update(file, "user", oldFile);
-    const path = imagePath.split("\\").slice(1).join("/");
-    console.log(imagePath);
+    const path = imagePath.split("/").slice(1).join("/");
+    console.log(path);
     const user = await this.userRepository.updateProfileImage(id, path);
     return user.unmarshal();
   }
