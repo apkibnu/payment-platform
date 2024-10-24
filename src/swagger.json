@@ -777,7 +777,7 @@
                 "serviceCode"
               ],
               "properties": {
-                "amount": {
+                "serviceCode": {
                   "type": "string",
                   "example": "PAJAK"
                 }
